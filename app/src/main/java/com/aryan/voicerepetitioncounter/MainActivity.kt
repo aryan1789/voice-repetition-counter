@@ -12,6 +12,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.aryan.voicerepetitioncounter.ui.theme.VoiceRepetitionCounterTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import com.aryan.voicerepetition.ui.JapaViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +24,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             VoiceRepetitionCounterTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    CounterScreen(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -31,17 +34,22 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun CounterScreen(modifier: Modifier = Modifier) {
+
+    val viewModel: JapaViewModel = viewModel()
+
+    val count by viewModel.currentCount.collectAsState()
+
     Text(
-        text = "Hello $name!",
+        text = "Repetitions: $count",
         modifier = modifier
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+fun CounterPreview() {
     VoiceRepetitionCounterTheme {
-        Greeting("Android")
+        CounterScreen()
     }
 }
