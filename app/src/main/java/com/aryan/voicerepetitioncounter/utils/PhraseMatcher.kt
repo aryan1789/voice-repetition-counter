@@ -1,4 +1,4 @@
-package com.aryan.voicerepetition.utils
+package com.aryan.voicerepetitioncounter.utils
 
 object PhraseMatcher {
 
